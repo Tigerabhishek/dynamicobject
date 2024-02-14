@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Object List</title>
+<style>
+  .object {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div id="container"></div>
+
+<script>
+  // Sample array of objects
+  let objects = [
+    {
+      name: "Object 1",
+      description: "Description of Object 1",
+      imageUrl: "https://example.com/image1.jpg"
+    },
+    {
+      name: "Object 2",
+      description: "Description of Object 2",
+      imageUrl: "https://example.com/image2.jpg"
+    },
+    {
+      name: "Object 3",
+      description: "Description of Object 3",
+      imageUrl: "https://example.com/image3.jpg"
+    }
+  ];
+
+  // Function to navigate to another page and pass object data
+  function navigateToDetailsPage(object) {
+    // Serialize the object data to JSON and encode it
+    let encodedObject = encodeURIComponent(JSON.stringify(object));
+    // Navigate to the details page with the encoded object data in the query string
+    window.location.href = "details.html?object=" + encodedObject;
+  }
+
+  // Get the container div
+  let container = document.getElementById("container");
+
+  // Iterate over the array and create clickable elements for each object
+  objects.forEach(object => {
+    // Create clickable div for each object
+    let objectDiv = document.createElement("div");
+    objectDiv.classList.add("object");
+    // Attach click event listener to navigate to details page when clicked
+    objectDiv.addEventListener("click", () => navigateToDetailsPage(object));
+    
+    // Create elements for name and description
+    let nameElement = document.createElement("p");
+    nameElement.textContent = "Name: " + object.name;
+
+    let descriptionElement = document.createElement("p");
+    descriptionElement.textContent = "Description: " + object.description;
+
+    // Create an image element
+    let imageElement = document.createElement("img");
+    imageElement.src = object.imageUrl;
+    imageElement.alt = "Image";
+
+    // Append elements to the container div
+    objectDiv.appendChild(nameElement);
+    objectDiv.appendChild(descriptionElement);
+    objectDiv.appendChild(imageElement);
+
+    // Append the container div to the main container
+    container.appendChild(objectDiv);
+  });
+</script>
+</body>
+</html>
